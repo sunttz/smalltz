@@ -1,0 +1,2 @@
+# smalltz
+jd_info
