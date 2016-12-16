@@ -1,3 +1,7 @@
 /target/
 .idea/
 smalltz.iml
+.settings/
+.checkstyle
+.classpath
+.project
