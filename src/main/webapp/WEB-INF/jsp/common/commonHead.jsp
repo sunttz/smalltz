@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="${base }/plugin/jqgrid/css/ui.jqgrid.css" />
 <!-- jqGrid主题包-非必要 -->
 <!-- 在jqgrid/css/css这个目录下还有其他的主题包，可以尝试更换看效果 -->
-<link rel="stylesheet" href="${base }/plugin/jqgrid/css/css/flick/jquery-ui-1.8.16.custom.css" />
+<link rel="stylesheet" href="${base }/plugin/jqgrid/css/css/hot-sneaks/jquery-ui-1.8.16.custom.css" />
 <!-- jquery插件包-必要 -->
 <!-- 这个是所有jquery插件的基础，首先第一个引入 -->
 <script type="text/javascript" src="${base }/plugin/jquery-3.1.1.min.js"></script>
