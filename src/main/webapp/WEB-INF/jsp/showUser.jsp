@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" import="java.util.*" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Test</title>
 </head>
 <body>
-    ${prov.province}
+    ${scuser.name}
 </body>
 </html>

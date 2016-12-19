@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stt.dao.ScuserDao">
+	<resultMap id="BaseResultMap" type="com.stt.entity.Scuser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="Name" property="name" jdbcType="VARCHAR" />
+		<result column="CardNo" property="cardno" jdbcType="VARCHAR" />
+		<result column="Descriot" property="descriot" jdbcType="VARCHAR" />
+		<result column="CtfTp" property="ctftp" jdbcType="VARCHAR" />
+		<result column="CtfId" property="ctfid" jdbcType="VARCHAR" />
+		<result column="Gender" property="gender" jdbcType="VARCHAR" />
+		<result column="Birthday" property="birthday" jdbcType="VARCHAR" />
+		<result column="Address" property="address" jdbcType="VARCHAR" />
+		<result column="Zip" property="zip" jdbcType="VARCHAR" />
+		<result column="Dirty" property="dirty" jdbcType="VARCHAR" />
+		<result column="District1" property="district1" jdbcType="VARCHAR" />
+		<result column="District2" property="district2" jdbcType="VARCHAR" />
+		<result column="District3" property="district3" jdbcType="VARCHAR" />
+		<result column="District4" property="district4" jdbcType="VARCHAR" />
+		<result column="District5" property="district5" jdbcType="VARCHAR" />
+		<result column="District6" property="district6" jdbcType="VARCHAR" />
+		<result column="FirstNm" property="firstnm" jdbcType="VARCHAR" />
+		<result column="LastNm" property="lastnm" jdbcType="VARCHAR" />
+		<result column="Duty" property="duty" jdbcType="VARCHAR" />
+		<result column="Mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="Tel" property="tel" jdbcType="VARCHAR" />
+		<result column="Fax" property="fax" jdbcType="VARCHAR" />
+		<result column="EMail" property="email" jdbcType="VARCHAR" />
+		<result column="Nation" property="nation" jdbcType="VARCHAR" />
+		<result column="Taste" property="taste" jdbcType="VARCHAR" />
+		<result column="Education" property="education" jdbcType="VARCHAR" />
+		<result column="Company" property="company" jdbcType="VARCHAR" />
+		<result column="CTel" property="ctel" jdbcType="VARCHAR" />
+		<result column="CAddress" property="caddress" jdbcType="VARCHAR" />
+		<result column="CZip" property="czip" jdbcType="VARCHAR" />
+		<result column="Family" property="family" jdbcType="INTEGER" />
+		<result column="Version" property="version" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, Name, CardNo, Descriot, CtfTp, CtfId, Gender, Birthday, Address, Zip,
+		Dirty,
+		District1, District2, District3, District4, District5, District6, FirstNm,
+		LastNm,
+		Duty, Mobile, Tel, Fax, EMail, Nation, Taste, Education, Company, CTel,
+		CAddress,
+		CZip, Family, Version
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from scuser
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 根据用户名查询 -->
+	<select id="selectUserByName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM scuser
+		WHERE 1 = 1
+		<if test="name != null and name !=''">
+			AND NAME = #{name,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from scuser
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.stt.entity.Scuser">
+		insert into scuser (id, Name, CardNo,
+		Descriot, CtfTp, CtfId,
+		Gender, Birthday, Address,
+		Zip, Dirty, District1,
+		District2, District3, District4,
+		District5, District6, FirstNm,
+		LastNm, Duty, Mobile,
+		Tel, Fax, EMail, Nation,
+		Taste, Education, Company,
+		CTel, CAddress, CZip,
+		Family, Version)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{cardno,jdbcType=VARCHAR},
+		#{descriot,jdbcType=VARCHAR}, #{ctftp,jdbcType=VARCHAR}, #{ctfid,jdbcType=VARCHAR},
+		#{gender,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{zip,jdbcType=VARCHAR}, #{dirty,jdbcType=VARCHAR}, #{district1,jdbcType=VARCHAR},
+		#{district2,jdbcType=VARCHAR}, #{district3,jdbcType=VARCHAR},
+		#{district4,jdbcType=VARCHAR},
+		#{district5,jdbcType=VARCHAR}, #{district6,jdbcType=VARCHAR}, #{firstnm,jdbcType=VARCHAR},
+		#{lastnm,jdbcType=VARCHAR}, #{duty,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{tel,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+		#{nation,jdbcType=VARCHAR},
+		#{taste,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR},
+		#{ctel,jdbcType=VARCHAR}, #{caddress,jdbcType=VARCHAR},
+		#{czip,jdbcType=VARCHAR},
+		#{family,jdbcType=INTEGER}, #{version,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.stt.entity.Scuser">
+		insert into scuser
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				Name,
+			</if>
+			<if test="cardno != null">
+				CardNo,
+			</if>
+			<if test="descriot != null">
+				Descriot,
+			</if>
+			<if test="ctftp != null">
+				CtfTp,
+			</if>
+			<if test="ctfid != null">
+				CtfId,
+			</if>
+			<if test="gender != null">
+				Gender,
+			</if>
+			<if test="birthday != null">
+				Birthday,
+			</if>
+			<if test="address != null">
+				Address,
+			</if>
+			<if test="zip != null">
+				Zip,
+			</if>
+			<if test="dirty != null">
+				Dirty,
+			</if>
+			<if test="district1 != null">
+				District1,
+			</if>
+			<if test="district2 != null">
+				District2,
+			</if>
+			<if test="district3 != null">
+				District3,
+			</if>
+			<if test="district4 != null">
+				District4,
+			</if>
+			<if test="district5 != null">
+				District5,
+			</if>
+			<if test="district6 != null">
+				District6,
+			</if>
+			<if test="firstnm != null">
+				FirstNm,
+			</if>
+			<if test="lastnm != null">
+				LastNm,
+			</if>
+			<if test="duty != null">
+				Duty,
+			</if>
+			<if test="mobile != null">
+				Mobile,
+			</if>
+			<if test="tel != null">
+				Tel,
+			</if>
+			<if test="fax != null">
+				Fax,
+			</if>
+			<if test="email != null">
+				EMail,
+			</if>
+			<if test="nation != null">
+				Nation,
+			</if>
+			<if test="taste != null">
+				Taste,
+			</if>
+			<if test="education != null">
+				Education,
+			</if>
+			<if test="company != null">
+				Company,
+			</if>
+			<if test="ctel != null">
+				CTel,
+			</if>
+			<if test="caddress != null">
+				CAddress,
+			</if>
+			<if test="czip != null">
+				CZip,
+			</if>
+			<if test="family != null">
+				Family,
+			</if>
+			<if test="version != null">
+				Version,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="cardno != null">
+				#{cardno,jdbcType=VARCHAR},
+			</if>
+			<if test="descriot != null">
+				#{descriot,jdbcType=VARCHAR},
+			</if>
+			<if test="ctftp != null">
+				#{ctftp,jdbcType=VARCHAR},
+			</if>
+			<if test="ctfid != null">
+				#{ctfid,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="zip != null">
+				#{zip,jdbcType=VARCHAR},
+			</if>
+			<if test="dirty != null">
+				#{dirty,jdbcType=VARCHAR},
+			</if>
+			<if test="district1 != null">
+				#{district1,jdbcType=VARCHAR},
+			</if>
+			<if test="district2 != null">
+				#{district2,jdbcType=VARCHAR},
+			</if>
+			<if test="district3 != null">
+				#{district3,jdbcType=VARCHAR},
+			</if>
+			<if test="district4 != null">
+				#{district4,jdbcType=VARCHAR},
+			</if>
+			<if test="district5 != null">
+				#{district5,jdbcType=VARCHAR},
+			</if>
+			<if test="district6 != null">
+				#{district6,jdbcType=VARCHAR},
+			</if>
+			<if test="firstnm != null">
+				#{firstnm,jdbcType=VARCHAR},
+			</if>
+			<if test="lastnm != null">
+				#{lastnm,jdbcType=VARCHAR},
+			</if>
+			<if test="duty != null">
+				#{duty,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="fax != null">
+				#{fax,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				#{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="taste != null">
+				#{taste,jdbcType=VARCHAR},
+			</if>
+			<if test="education != null">
+				#{education,jdbcType=VARCHAR},
+			</if>
+			<if test="company != null">
+				#{company,jdbcType=VARCHAR},
+			</if>
+			<if test="ctel != null">
+				#{ctel,jdbcType=VARCHAR},
+			</if>
+			<if test="caddress != null">
+				#{caddress,jdbcType=VARCHAR},
+			</if>
+			<if test="czip != null">
+				#{czip,jdbcType=VARCHAR},
+			</if>
+			<if test="family != null">
+				#{family,jdbcType=INTEGER},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.stt.entity.Scuser">
+		update scuser
+		<set>
+			<if test="name != null">
+				Name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="cardno != null">
+				CardNo = #{cardno,jdbcType=VARCHAR},
+			</if>
+			<if test="descriot != null">
+				Descriot = #{descriot,jdbcType=VARCHAR},
+			</if>
+			<if test="ctftp != null">
+				CtfTp = #{ctftp,jdbcType=VARCHAR},
+			</if>
+			<if test="ctfid != null">
+				CtfId = #{ctfid,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				Gender = #{gender,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				Birthday = #{birthday,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				Address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="zip != null">
+				Zip = #{zip,jdbcType=VARCHAR},
+			</if>
+			<if test="dirty != null">
+				Dirty = #{dirty,jdbcType=VARCHAR},
+			</if>
+			<if test="district1 != null">
+				District1 = #{district1,jdbcType=VARCHAR},
+			</if>
+			<if test="district2 != null">
+				District2 = #{district2,jdbcType=VARCHAR},
+			</if>
+			<if test="district3 != null">
+				District3 = #{district3,jdbcType=VARCHAR},
+			</if>
+			<if test="district4 != null">
+				District4 = #{district4,jdbcType=VARCHAR},
+			</if>
+			<if test="district5 != null">
+				District5 = #{district5,jdbcType=VARCHAR},
+			</if>
+			<if test="district6 != null">
+				District6 = #{district6,jdbcType=VARCHAR},
+			</if>
+			<if test="firstnm != null">
+				FirstNm = #{firstnm,jdbcType=VARCHAR},
+			</if>
+			<if test="lastnm != null">
+				LastNm = #{lastnm,jdbcType=VARCHAR},
+			</if>
+			<if test="duty != null">
+				Duty = #{duty,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				Mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				Tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="fax != null">
+				Fax = #{fax,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				EMail = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				Nation = #{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="taste != null">
+				Taste = #{taste,jdbcType=VARCHAR},
+			</if>
+			<if test="education != null">
+				Education = #{education,jdbcType=VARCHAR},
+			</if>
+			<if test="company != null">
+				Company = #{company,jdbcType=VARCHAR},
+			</if>
+			<if test="ctel != null">
+				CTel = #{ctel,jdbcType=VARCHAR},
+			</if>
+			<if test="caddress != null">
+				CAddress = #{caddress,jdbcType=VARCHAR},
+			</if>
+			<if test="czip != null">
+				CZip = #{czip,jdbcType=VARCHAR},
+			</if>
+			<if test="family != null">
+				Family = #{family,jdbcType=INTEGER},
+			</if>
+			<if test="version != null">
+				Version = #{version,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.stt.entity.Scuser">
+		update scuser
+		set Name = #{name,jdbcType=VARCHAR},
+		CardNo = #{cardno,jdbcType=VARCHAR},
+		Descriot = #{descriot,jdbcType=VARCHAR},
+		CtfTp = #{ctftp,jdbcType=VARCHAR},
+		CtfId = #{ctfid,jdbcType=VARCHAR},
+		Gender = #{gender,jdbcType=VARCHAR},
+		Birthday = #{birthday,jdbcType=VARCHAR},
+		Address = #{address,jdbcType=VARCHAR},
+		Zip = #{zip,jdbcType=VARCHAR},
+		Dirty = #{dirty,jdbcType=VARCHAR},
+		District1 = #{district1,jdbcType=VARCHAR},
+		District2 = #{district2,jdbcType=VARCHAR},
+		District3 = #{district3,jdbcType=VARCHAR},
+		District4 = #{district4,jdbcType=VARCHAR},
+		District5 = #{district5,jdbcType=VARCHAR},
+		District6 = #{district6,jdbcType=VARCHAR},
+		FirstNm = #{firstnm,jdbcType=VARCHAR},
+		LastNm = #{lastnm,jdbcType=VARCHAR},
+		Duty = #{duty,jdbcType=VARCHAR},
+		Mobile = #{mobile,jdbcType=VARCHAR},
+		Tel = #{tel,jdbcType=VARCHAR},
+		Fax = #{fax,jdbcType=VARCHAR},
+		EMail = #{email,jdbcType=VARCHAR},
+		Nation = #{nation,jdbcType=VARCHAR},
+		Taste = #{taste,jdbcType=VARCHAR},
+		Education = #{education,jdbcType=VARCHAR},
+		Company = #{company,jdbcType=VARCHAR},
+		CTel = #{ctel,jdbcType=VARCHAR},
+		CAddress = #{caddress,jdbcType=VARCHAR},
+		CZip = #{czip,jdbcType=VARCHAR},
+		Family = #{family,jdbcType=INTEGER},
+		Version = #{version,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>
