@@ -26,7 +26,7 @@ public class ScuserServiceImpl implements ScuserService {
 	@Override
 	public PageInfo<Scuser> queryByPage(String name, Integer pageNo, Integer pageSize) {
 		pageNo = pageNo == null?1:pageNo;
-	    pageSize = pageSize == null?10:pageSize;
+	    pageSize = pageSize == null?20:pageSize;
 	    PageHelper.startPage(pageNo, pageSize);
 	    List<Scuser> list = scuserDao.selectUserByName(name);
 	    //用PageInfo对结果进行包装

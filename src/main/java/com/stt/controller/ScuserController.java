@@ -11,6 +11,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.stt.entity.Scuser;
+import com.stt.dao.QueryLogDao;
+import com.stt.entity.QueryLog;
 import com.stt.service.ScuserService;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,7 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ScuserController {
     @Resource
     private ScuserService scuserService;
-
+    @Resource
+    private QueryLogDao queryLogDao;
+    
     @RequestMapping("/show")
     public String show(HttpServletRequest request, Model model){
         int id = Integer.parseInt(request.getParameter("id"));
@@ -42,9 +46,18 @@ public class ScuserController {
         String name = request.getParameter("name");
         int pageNo = Integer.parseInt(request.getParameter("page"));
         int pageSize = Integer.parseInt(request.getParameter("rows"));
-        System.out.println("name:" + name);
         if(StringUtils.isEmpty(name)){
             return null;
+        }
+        if(pageNo == 1){
+        	// 记录查询日志
+        	QueryLog log = new QueryLog();
+        	log.setName(name);
+        	try {
+        		queryLogDao.insertSelective(log);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
         }
         PageInfo<Scuser> page = scuserService.queryByPage(name,pageNo,pageSize);
         return page;
