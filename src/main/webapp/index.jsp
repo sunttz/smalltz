@@ -46,7 +46,7 @@
 			jQuery("#pageGrid").jqGrid(jqOption).setGridWidth($(window).width()-200);
 			/*创建jqGrid的操作按钮容器*/
 			/*可以控制界面上增删改查的按钮是否显示*/
-			jQuery("#pageGrid").jqGrid('navGrid', '#pageGridPager', {edit : false,add : false,del : false});
+			jQuery("#pageGrid").jqGrid('navGrid', '#pageGridPager', {edit : false,add : false,del : false,search: false});
 			var newHeight = $(window).height() - 440;
 			$(".ui-jqgrid .ui-jqgrid-bdiv").css("cssText","height: "+newHeight+"px!important;");
 			$(window).resize(function() {
@@ -59,8 +59,264 @@
 					postData: {name:$("#name").val()},
 					page:1
 				}).trigger("reloadGrid");
+				
+				// 用户性别比例饼图加载
+				
 			});
+			
+			
+			// 柱图
+	        var myChart = echarts.init(document.getElementById('main'),'vintage');
+	        // 指定图表的配置项和数据
+	        var option = {
+	            title: {
+	                text: '年龄分布'
+	            },
+	            tooltip: {},
+	            legend: {
+	                data:['年龄段']
+	            },
+	            xAxis: {
+	                data: ["90后","80后","70后","60后","其他"]
+	            },
+	            yAxis: {},
+	            series: [{
+	                name: '销量',
+	                type: 'bar',
+	                data: [5, 20, 36, 10, 20]
+	            }]
+	        };
+	        // 使用刚指定的配置项和数据显示图表。
+	        myChart.setOption(option);
+	        
+	        // 饼图
+	        var myChart2 = echarts.init(document.getElementById('main2'),'vintage');
+	        option = {
+	        	    title : {
+	        	        text: '性别比例',
+	        	        //subtext: '仅供参考',
+	        	        x:'center'
+	        	    },
+	        	    tooltip : {
+	        	        trigger: 'item',
+	        	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+	        	    },
+	        	    legend: {
+	        	        orient: 'vertical',
+	        	        left: 'left',
+	        	        data: ['男','女','未知']
+	        	    },
+	        	    series : [
+	        	        {
+	        	            name: '性别',
+	        	            type: 'pie',
+	        	            radius : '55%',
+	        	            center: ['50%', '60%'],
+	        	            data:[
+	        	                {value:385, name:'男'},
+	        	                {value:310, name:'女'},
+	        	                {value:234, name:'未知'}
+	        	            ],
+	        	            itemStyle: {
+	        	                emphasis: {
+	        	                    shadowBlur: 10,
+	        	                    shadowOffsetX: 0,
+	        	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+	        	                }
+	        	            }
+	        	        }
+	        	    ]
+	        	};
+	        myChart2.setOption(option);
+	        
+	        // 分布图
+	        var myChart3 = echarts.init(document.getElementById('main3'),'vintage');
+	        function randomData() {
+	            return Math.round(Math.random()*1000);
+	        }
+
+	        option = {
+	            title: {
+	                text: 'iphone销量',
+	                subtext: '纯属虚构',
+	                left: 'center'
+	            },
+	            tooltip: {
+	                trigger: 'item'
+	            },
+	            legend: {
+	                orient: 'vertical',
+	                left: 'left',
+	                data:['iphone3','iphone4','iphone5']
+	            },
+	            visualMap: {
+	                min: 0,
+	                max: 2500,
+	                left: 'left',
+	                top: 'bottom',
+	                text: ['高','低'],           // 文本，默认为数值文本
+	                calculable: true
+	            },
+	            toolbox: {
+	                show: true,
+	                orient: 'vertical',
+	                left: 'right',
+	                top: 'center',
+	                feature: {
+	                    dataView: {readOnly: false},
+	                    restore: {},
+	                    saveAsImage: {}
+	                }
+	            },
+	            series: [
+	                {
+	                    name: 'iphone3',
+	                    type: 'map',
+	                    mapType: 'china',
+	                    roam: false,
+	                    label: {
+	                        normal: {
+	                            show: true
+	                        },
+	                        emphasis: {
+	                            show: true
+	                        }
+	                    },
+	                    data:[
+	                        {name: '北京',value: randomData() },
+	                        {name: '天津',value: randomData() },
+	                        {name: '上海',value: randomData() },
+	                        {name: '重庆',value: randomData() },
+	                        {name: '河北',value: randomData() },
+	                        {name: '河南',value: randomData() },
+	                        {name: '云南',value: randomData() },
+	                        {name: '辽宁',value: randomData() },
+	                        {name: '黑龙江',value: randomData() },
+	                        {name: '湖南',value: randomData() },
+	                        {name: '安徽',value: randomData() },
+	                        {name: '山东',value: randomData() },
+	                        {name: '新疆',value: randomData() },
+	                        {name: '江苏',value: randomData() },
+	                        {name: '浙江',value: randomData() },
+	                        {name: '江西',value: randomData() },
+	                        {name: '湖北',value: randomData() },
+	                        {name: '广西',value: randomData() },
+	                        {name: '甘肃',value: randomData() },
+	                        {name: '山西',value: randomData() },
+	                        {name: '内蒙古',value: randomData() },
+	                        {name: '陕西',value: randomData() },
+	                        {name: '吉林',value: randomData() },
+	                        {name: '福建',value: randomData() },
+	                        {name: '贵州',value: randomData() },
+	                        {name: '广东',value: randomData() },
+	                        {name: '青海',value: randomData() },
+	                        {name: '西藏',value: randomData() },
+	                        {name: '四川',value: randomData() },
+	                        {name: '宁夏',value: randomData() },
+	                        {name: '海南',value: randomData() },
+	                        {name: '台湾',value: randomData() },
+	                        {name: '香港',value: randomData() },
+	                        {name: '澳门',value: randomData() }
+	                    ]
+	                },
+	                {
+	                    name: 'iphone4',
+	                    type: 'map',
+	                    mapType: 'china',
+	                    label: {
+	                        normal: {
+	                            show: true
+	                        },
+	                        emphasis: {
+	                            show: true
+	                        }
+	                    },
+	                    data:[
+	                        {name: '北京',value: randomData() },
+	                        {name: '天津',value: randomData() },
+	                        {name: '上海',value: randomData() },
+	                        {name: '重庆',value: randomData() },
+	                        {name: '河北',value: randomData() },
+	                        {name: '安徽',value: randomData() },
+	                        {name: '新疆',value: randomData() },
+	                        {name: '浙江',value: randomData() },
+	                        {name: '江西',value: randomData() },
+	                        {name: '山西',value: randomData() },
+	                        {name: '内蒙古',value: randomData() },
+	                        {name: '吉林',value: randomData() },
+	                        {name: '福建',value: randomData() },
+	                        {name: '广东',value: randomData() },
+	                        {name: '西藏',value: randomData() },
+	                        {name: '四川',value: randomData() },
+	                        {name: '宁夏',value: randomData() },
+	                        {name: '香港',value: randomData() },
+	                        {name: '澳门',value: randomData() }
+	                    ]
+	                },
+	                {
+	                    name: 'iphone5',
+	                    type: 'map',
+	                    mapType: 'china',
+	                    label: {
+	                        normal: {
+	                            show: true
+	                        },
+	                        emphasis: {
+	                            show: true
+	                        }
+	                    },
+	                    data:[
+	                        {name: '北京',value: randomData() },
+	                        {name: '天津',value: randomData() },
+	                        {name: '上海',value: randomData() },
+	                        {name: '广东',value: randomData() },
+	                        {name: '台湾',value: randomData() },
+	                        {name: '香港',value: randomData() },
+	                        {name: '澳门',value: randomData() }
+	                    ]
+	                }
+	            ]
+	        };
+	        //myChart3.showLoading();
+	        myChart3.setOption(option);
+	        
+	        
 		});
+		
+		
+		//ajax获取性别比例统计数据
+        function getSexPie(name){
+        	$.ajax({
+					url:'${base}/vendorStatistics/salesProfileSummary.jhtml',
+					sync:false,
+					type : 'post',
+					data : {
+						name : name
+					},
+					dataType : "json",
+					error : function(data) {
+						return false;
+					},
+					success : function(data) {
+						data = eval(data);
+						var categories = new Array();
+						var datas = new Array();
+						for(var i=0; i<data.length; i++){
+							var item = eval(data[i]);
+							if(item.hasOwnProperty('DAY')){
+								categories[i] = item.DAY;
+							}
+							if(item.hasOwnProperty('HOUR')){
+								categories[i] = item.HOUR + "时";
+							}
+							if(item.hasOwnProperty('QTYS')){
+								datas[i] = item.QTYS;
+							}
+						}
+						summaryStatistic(categories,datas);
+					}
+			});
+        }
 	</script>
 </head>
 
@@ -85,6 +341,19 @@
 					<table id="pageGrid" rel="jqgridForm" class="jqgrid"></table>
 					<div id="pageGridPager"></div>
 				</div>
+			</div>
+			<br/>
+		</div>
+		<div class="container" style="margin: 10px 10px 10px 10px">
+			<div class="form-group col-sm-4">
+				<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+	    		<div id="main" style="width: 380px;height:290px;"></div>
+			</div>
+			<div class="form-group col-sm-4" style="margin-left:5px;">
+	    		<div id="main2" style="width: 380px;height:290px;"></div>
+			</div>
+			<div class="form-group col-sm-8">
+	    		<div id="main3" style="width: 750px;height:500px;"></div>
 			</div>
 		</div>
 	</form>

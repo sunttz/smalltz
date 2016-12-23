@@ -24,6 +24,18 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="${base }/plugin/bootstrap/js/bootstrap.min.js"></script>
 
+<!-- 引入 ECharts 文件 -->
+<script src="${base }/plugin/echarts/echarts.js"></script>
+<!-- 引入 主题 -->
+<script src="${base }/plugin/echarts/theme/vintage.js"></script>
+<script src="${base }/plugin/echarts/theme/dark.js"></script>
+<script src="${base }/plugin/echarts/theme/macarons.js"></script>
+<script src="${base }/plugin/echarts/theme/infographic.js"></script>
+<script src="${base }/plugin/echarts/theme/shine.js"></script>
+<script src="${base }/plugin/echarts/theme/roma.js"></script>
+<!-- 引入 地图 -->
+<script src="${base }/plugin/echarts/map/china.js"></script>
+
 <style type="text/css">
 	html, body {
 		height: 100%;
