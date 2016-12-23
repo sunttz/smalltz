@@ -1,6 +1,7 @@
 package com.stt.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -25,4 +26,11 @@ public interface ScuserDao {
      * @return
      */
     List<Scuser> selectUserByName(@Param("name") String name);
+
+    /**
+     * 根据用户名统计男女比例
+     * @param name
+     * @return
+     */
+    List<Map<String, Object>> selectSexPie(@Param("name") String name);
 }

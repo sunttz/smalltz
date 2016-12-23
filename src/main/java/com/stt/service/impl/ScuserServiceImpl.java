@@ -1,6 +1,7 @@
 package com.stt.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -32,5 +33,10 @@ public class ScuserServiceImpl implements ScuserService {
 	    //用PageInfo对结果进行包装
 	    PageInfo<Scuser> page = new PageInfo<Scuser>(list);
 	    return page;
+	}
+
+	@Override
+	public List<Map<String, Object>> selectSexPie(String name) {
+		return scuserDao.selectSexPie(name);
 	}
 }

@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import com.stt.entity.ClientInfo;
 import com.stt.service.QueryLogService;
 import com.stt.util.HttpUtil;
+import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -17,6 +18,10 @@ import com.stt.entity.Scuser;
 import com.stt.entity.QueryLog;
 import com.stt.service.ScuserService;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -84,5 +89,20 @@ public class ScuserController {
         return page;
 	}
 
+    /**
+     * 根据用户名统计男女比例
+     * @return
+     */
+    @RequestMapping(value = "/selectSex")
+    @ResponseBody
+    public Object selectSex(HttpServletRequest request, Model model){
+        String name = request.getParameter("name");
+        if(StringUtils.isEmpty(name)){
+            return null;
+        }
+        List<Map<String, Object>> sexList = scuserService.selectSexPie(name);
+        JSONArray json = JSONArray.fromObject(sexList);
+        return json;
+    }
 
 }

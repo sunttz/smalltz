@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="GBK" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.stt.dao.ScuserDao">
 	<resultMap id="BaseResultMap" type="com.stt.entity.Scuser">
@@ -52,7 +52,7 @@
 		from scuser
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<!-- �����û�����ѯ -->
+	<!-- 根据用户名查询 -->
 	<select id="selectUserByName" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
 		SELECT 
@@ -63,6 +63,23 @@
 			AND NAME = #{name,jdbcType=VARCHAR}
 		</if>
 	</select>
+	<!-- 根据用户名统计男女比例 -->
+	<select id="selectSexPie" parameterType="java.lang.String"
+			resultType="java.util.HashMap">
+		SELECT gender, count(gender) num
+			FROM (SELECT CASE Gender
+			WHEN 'M' THEN '男'
+			WHEN 'F' THEN '女'
+			ELSE '未知' END gender
+			FROM scuser
+			WHERE 1=1
+			<if test="name != null and name !=''">
+				AND NAME = #{name,jdbcType=VARCHAR}
+			</if>
+			) t
+		GROUP BY gender
+	</select>
+
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from scuser
 		where id = #{id,jdbcType=INTEGER}

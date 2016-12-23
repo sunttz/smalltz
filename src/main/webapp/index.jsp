@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <html lang="cn">
 <jsp:include page="/WEB-INF/jsp/common/commonHead.jsp" flush="true"/>
 <head>
@@ -54,14 +54,17 @@
 			});
 
 			$("#searchBtn").bind("click",function () {
-				$("#pageGrid").jqGrid('setGridParam',{  // 重新加载数据
-					datatype:'json',
-					postData: {name:$("#name").val()},
-					page:1
-				}).trigger("reloadGrid");
-				
-				// 用户性别比例饼图加载
-				
+				var name = $("#name").val();
+				if(name != null && name != ""){
+					$("#pageGrid").jqGrid('setGridParam',{  // 重新加载数据
+						datatype:'json',
+						postData: {name:name},
+						page:1
+					}).trigger("reloadGrid");
+
+					// 用户性别比例饼图加载
+					getSexPie(name);
+				}
 			});
 			
 			
@@ -113,9 +116,9 @@
 	        	            radius : '55%',
 	        	            center: ['50%', '60%'],
 	        	            data:[
-	        	                {value:385, name:'男'},
+	        	                /*{value:385, name:'男'},
 	        	                {value:310, name:'女'},
-	        	                {value:234, name:'未知'}
+	        	                {value:234, name:'未知'}*/
 	        	            ],
 	        	            itemStyle: {
 	        	                emphasis: {
@@ -279,44 +282,73 @@
 	        };
 	        //myChart3.showLoading();
 	        myChart3.setOption(option);
-	        
-	        
+
+
+			//ajax获取性别比例统计数据
+			function getSexPie(name){
+				myChart2.showLoading();
+
+				// 填入数据
+				/*myChart2.setOption({
+					series: [{
+						data: [{value:385, name:'男'},
+							{value:310, name:'女'},
+							{value:234, name:'未知'}]
+					}]
+				});
+				myChart2.hideLoading();*/
+
+				$.ajax({
+					url: '${base}/scuser/selectSex.do',
+					sync: false,
+					type: 'post',
+					data: {
+						name: name
+					},
+					dataType: "json",
+					error: function (data) {
+						return false;
+					},
+					success: function (data) {
+						myChart2.hideLoading();
+						data = eval(data);
+						var sexPie = new Array();
+
+						for (var i = 0; i < data.length; i++) {
+							var item = eval(data[i]);
+							var it = {};
+							if (item.hasOwnProperty('gender')) {
+								it.name = item.gender;
+							}
+							if (item.hasOwnProperty('num')) {
+								it.value = item.num;
+							}
+							sexPie.push(it);
+						}
+						myChart2.setOption({
+							series: [{
+								data: sexPie
+							}]
+						});
+					}
+				});
+			}
+
+
+
+
+
+
+
+
+
+
+
+
 		});
 		
 		
-		//ajax获取性别比例统计数据
-        function getSexPie(name){
-        	$.ajax({
-					url:'${base}/vendorStatistics/salesProfileSummary.jhtml',
-					sync:false,
-					type : 'post',
-					data : {
-						name : name
-					},
-					dataType : "json",
-					error : function(data) {
-						return false;
-					},
-					success : function(data) {
-						data = eval(data);
-						var categories = new Array();
-						var datas = new Array();
-						for(var i=0; i<data.length; i++){
-							var item = eval(data[i]);
-							if(item.hasOwnProperty('DAY')){
-								categories[i] = item.DAY;
-							}
-							if(item.hasOwnProperty('HOUR')){
-								categories[i] = item.HOUR + "时";
-							}
-							if(item.hasOwnProperty('QTYS')){
-								datas[i] = item.QTYS;
-							}
-						}
-						summaryStatistic(categories,datas);
-					}
-			});
-        }
+
 	</script>
 </head>
 
@@ -345,14 +377,14 @@
 			<br/>
 		</div>
 		<div class="container" style="margin: 10px 10px 10px 10px">
-			<div class="form-group col-sm-4">
+			<div class="form-group col-sm-4" style="display: none">
 				<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
 	    		<div id="main" style="width: 380px;height:290px;"></div>
 			</div>
 			<div class="form-group col-sm-4" style="margin-left:5px;">
 	    		<div id="main2" style="width: 380px;height:290px;"></div>
 			</div>
-			<div class="form-group col-sm-8">
+			<div class="form-group col-sm-8" style="display: none">
 	    		<div id="main3" style="width: 750px;height:500px;"></div>
 			</div>
 		</div>
