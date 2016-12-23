@@ -25,7 +25,7 @@
 <script src="${base }/plugin/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- 引入 ECharts 文件 -->
-<script src="${base }/plugin/echarts/echarts.js"></script>
+<script src="${base }/plugin/echarts/echarts.common.min.js"></script>
 <!-- 引入 主题 -->
 <script src="${base }/plugin/echarts/theme/vintage.js"></script>
 <script src="${base }/plugin/echarts/theme/dark.js"></script>
