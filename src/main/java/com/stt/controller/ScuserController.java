@@ -19,6 +19,7 @@ import com.stt.entity.QueryLog;
 import com.stt.service.ScuserService;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -102,6 +103,22 @@ public class ScuserController {
         }
         List<Map<String, Object>> sexList = scuserService.selectSexPie(name);
         JSONArray json = JSONArray.fromObject(sexList);
+        return json;
+    }
+
+    /**
+     * 根据用户名统计年龄分布
+     * @return
+     */
+    @RequestMapping(value = "/selectBir")
+    @ResponseBody
+    public Object selectBir(HttpServletRequest request, Model model){
+        String name = request.getParameter("name");
+        if(StringUtils.isEmpty(name)){
+            return null;
+        }
+        List<Map<String, Object>> birList = scuserService.selectBirLine(name);
+        JSONArray json = JSONArray.fromObject(birList);
         return json;
     }
 

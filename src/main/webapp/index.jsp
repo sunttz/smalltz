@@ -64,6 +64,8 @@
 
 					// 用户性别比例饼图加载
 					getSexPie(name);
+					// 用户年龄分布图加载
+					getBirLine(name)
 				}
 			});
 			
@@ -80,13 +82,21 @@
 	                data:['年龄段']
 	            },
 	            xAxis: {
-	                data: ["90后","80后","70后","60后","其他"]
+	                data: [/*"90后","80后","70后","60后","50后","其他"*/],
 	            },
-	            yAxis: {},
+	            yAxis:{
+				}
+				,
 	            series: [{
-	                name: '销量',
+	                name: '数量',
 	                type: 'bar',
-	                data: [5, 20, 36, 10, 20]
+					label: {
+						normal: {
+							show: true,
+							position: 'inside'
+						}
+					},
+	                data: [/*0, 0, 0, 0, 0, 0*/]
 	            }]
 	        };
 	        // 使用刚指定的配置项和数据显示图表。
@@ -125,8 +135,15 @@
 	        	                    shadowBlur: 10,
 	        	                    shadowOffsetX: 0,
 	        	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-	        	                }
-	        	            }
+	        	                },
+								normal:{
+									label:{
+										show: true,
+										formatter: '{b} : {c} ({d}%)'
+									},
+									labelLine :{show:true}
+								}
+							}
 	        	        }
 	        	    ]
 	        	};
@@ -287,17 +304,7 @@
 			//ajax获取性别比例统计数据
 			function getSexPie(name){
 				myChart2.showLoading();
-
 				// 填入数据
-				/*myChart2.setOption({
-					series: [{
-						data: [{value:385, name:'男'},
-							{value:310, name:'女'},
-							{value:234, name:'未知'}]
-					}]
-				});
-				myChart2.hideLoading();*/
-
 				$.ajax({
 					url: '${base}/scuser/selectSex.do',
 					sync: false,
@@ -334,8 +341,43 @@
 				});
 			}
 
+			//ajax获取年龄分布统计数据
+			function getBirLine(name){
+				myChart.showLoading();
+				// 填入数据
+				$.ajax({
+					url: '${base}/scuser/selectBir.do',
+					sync: false,
+					type: 'post',
+					data: {
+						name: name
+					},
+					dataType: "json",
+					error: function (data) {
+						return false;
+					},
+					success: function (data) {
+						myChart.hideLoading();
+						data = eval(data);
+						var titles = new Array();
+						var list = new Array();
 
-
+						for (var i = 0; i < data.length; i++) {
+							var item = eval(data[i]);
+							titles.push(item.bir);
+							list.push(item.num);
+						}
+						myChart.setOption({
+							xAxis: {
+								data: titles
+							},
+							series: [{
+								data: list
+							}]
+						});
+					}
+				});
+			}
 
 
 
@@ -377,12 +419,12 @@
 			<br/>
 		</div>
 		<div class="container" style="margin: 10px 10px 10px 10px">
-			<div class="form-group col-sm-4" style="display: none">
+			<div class="form-group col-sm-5">
 				<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-	    		<div id="main" style="width: 380px;height:290px;"></div>
+	    		<div id="main" style="width: 430px;height:290px;"></div>
 			</div>
-			<div class="form-group col-sm-4" style="margin-left:5px;">
-	    		<div id="main2" style="width: 380px;height:290px;"></div>
+			<div class="form-group col-sm-5">
+	    		<div id="main2" style="width: 430px;height:290px;"></div>
 			</div>
 			<div class="form-group col-sm-8" style="display: none">
 	    		<div id="main3" style="width: 750px;height:500px;"></div>

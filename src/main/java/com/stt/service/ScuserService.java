@@ -13,4 +13,11 @@ public interface ScuserService {
 	PageInfo<Scuser> queryByPage(String name,Integer pageNo,Integer pageSize);
 
 	public List<Map<String, Object>> selectSexPie(String name);
+
+	/**
+	 * 根据用户名统计年龄分布
+	 * @param name
+	 * @return
+	 */
+	List<Map<String, Object>> selectBirLine(String name);
 }

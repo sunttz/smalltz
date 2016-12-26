@@ -79,6 +79,27 @@
 			) t
 		GROUP BY gender
 	</select>
+	<!-- 根据用户名统计年龄分布 -->
+	<select id="selectBirLine" parameterType="java.lang.String"
+			resultType="java.util.HashMap">
+		SELECT bir,count(bir) num
+			FROM (SELECT CASE left(birthday, 3)
+			WHEN '199' THEN '90后'
+			WHEN '198' THEN '80后'
+			WHEN '197' THEN '70后'
+			WHEN '196' THEN '60后'
+			WHEN '195' THEN '50后'
+			ELSE ' 其他'
+			END bir
+			FROM scuser
+			WHERE 1 = 1
+			<if test="name != null and name !=''">
+				AND NAME = #{name,jdbcType=VARCHAR}
+			</if>
+			) t
+		GROUP BY bir
+		ORDER BY bir DESC
+	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from scuser
