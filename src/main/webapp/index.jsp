@@ -244,7 +244,7 @@
 			
 	        myChart3.on('click', function (params) {
 	            var city = params.name;
-	            getCityMap('',city); 
+	            getCityMap('',city);
 	        });
 	        
 	      	//ajax获取全国分布统计数据
