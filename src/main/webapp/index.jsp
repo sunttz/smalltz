@@ -155,7 +155,7 @@
 	            return Math.round(Math.random()*1000);
 	        }
 
-	        option = {
+	        var option3 = {
 	            title: {
 	                text: 'iphone销量',
 	                subtext: '纯属虚构',
@@ -238,68 +238,16 @@
 	                        {name: '香港',value: randomData() },
 	                        {name: '澳门',value: randomData() }
 	                    ]
-	                },
-	                {
-	                    name: 'iphone4',
-	                    type: 'map',
-	                    mapType: 'china',
-	                    label: {
-	                        normal: {
-	                            show: true
-	                        },
-	                        emphasis: {
-	                            show: true
-	                        }
-	                    },
-	                    data:[
-	                        {name: '北京',value: randomData() },
-	                        {name: '天津',value: randomData() },
-	                        {name: '上海',value: randomData() },
-	                        {name: '重庆',value: randomData() },
-	                        {name: '河北',value: randomData() },
-	                        {name: '安徽',value: randomData() },
-	                        {name: '新疆',value: randomData() },
-	                        {name: '浙江',value: randomData() },
-	                        {name: '江西',value: randomData() },
-	                        {name: '山西',value: randomData() },
-	                        {name: '内蒙古',value: randomData() },
-	                        {name: '吉林',value: randomData() },
-	                        {name: '福建',value: randomData() },
-	                        {name: '广东',value: randomData() },
-	                        {name: '西藏',value: randomData() },
-	                        {name: '四川',value: randomData() },
-	                        {name: '宁夏',value: randomData() },
-	                        {name: '香港',value: randomData() },
-	                        {name: '澳门',value: randomData() }
-	                    ]
-	                },
-	                {
-	                    name: 'iphone5',
-	                    type: 'map',
-	                    mapType: 'china',
-	                    label: {
-	                        normal: {
-	                            show: true
-	                        },
-	                        emphasis: {
-	                            show: true
-	                        }
-	                    },
-	                    data:[
-	                        {name: '北京',value: randomData() },
-	                        {name: '天津',value: randomData() },
-	                        {name: '上海',value: randomData() },
-	                        {name: '广东',value: randomData() },
-	                        {name: '台湾',value: randomData() },
-	                        {name: '香港',value: randomData() },
-	                        {name: '澳门',value: randomData() }
-	                    ]
 	                }
 	            ]
 	        };
 	        //myChart3.showLoading();
-	        myChart3.setOption(option);
-
+	        myChart3.setOption(option3);
+			
+	        myChart3.on('click', function (params) {
+	            var city = params.name;
+	            loadChart(city); 
+	        });
 
 			//ajax获取性别比例统计数据
 			function getSexPie(name){
@@ -426,7 +374,7 @@
 			<div class="form-group col-sm-5">
 	    		<div id="main2" style="width: 430px;height:290px;"></div>
 			</div>
-			<div class="form-group col-sm-8" style="display: none">
+			<div class="form-group col-sm-8">
 	    		<div id="main3" style="width: 750px;height:500px;"></div>
 			</div>
 		</div>
