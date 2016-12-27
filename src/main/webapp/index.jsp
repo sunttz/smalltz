@@ -66,6 +66,8 @@
 					getSexPie(name);
 					// 用户年龄分布图加载
 					getBirLine(name)
+					// 获取地域分布统计数据
+					getAreaMap(name);
 				}
 			});
 			
@@ -151,14 +153,10 @@
 	        
 	        // 分布图
 	        var myChart3 = echarts.init(document.getElementById('main3'),'vintage');
-	        function randomData() {
-	            return Math.round(Math.random()*1000);
-	        }
-
 	        var option3 = {
 	            title: {
-	                text: 'iphone销量',
-	                subtext: '纯属虚构',
+	                text: '地域分布',
+	                //subtext: '纯属虚构',
 	                left: 'center'
 	            },
 	            tooltip: {
@@ -167,7 +165,7 @@
 	            legend: {
 	                orient: 'vertical',
 	                left: 'left',
-	                data:['iphone3','iphone4','iphone5']
+	                data:['人数']
 	            },
 	            visualMap: {
 	                min: 0,
@@ -190,10 +188,10 @@
 	            },
 	            series: [
 	                {
-	                    name: 'iphone3',
+	                    name: '人数',
 	                    type: 'map',
 	                    mapType: 'china',
-	                    roam: false,
+	                    roam: true,
 	                    label: {
 	                        normal: {
 	                            show: true
@@ -203,8 +201,8 @@
 	                        }
 	                    },
 	                    data:[
-	                        {name: '北京',value: randomData() },
-	                        {name: '天津',value: randomData() },
+	                        /*{name: '北京',value: 10000 },
+	                        {name: '天津',value: 5 },
 	                        {name: '上海',value: randomData() },
 	                        {name: '重庆',value: randomData() },
 	                        {name: '河北',value: randomData() },
@@ -236,7 +234,7 @@
 	                        {name: '海南',value: randomData() },
 	                        {name: '台湾',value: randomData() },
 	                        {name: '香港',value: randomData() },
-	                        {name: '澳门',value: randomData() }
+	                        {name: '澳门',value: randomData() } */
 	                    ]
 	                }
 	            ]
@@ -246,8 +244,110 @@
 			
 	        myChart3.on('click', function (params) {
 	            var city = params.name;
-	            loadChart(city); 
+	            getCityMap('',city); 
 	        });
+	        
+	      	//ajax获取全国分布统计数据
+			function getAreaMap(name){
+				myChart3.setOption({
+					series: [{
+			                    data:[{name: '北京',value: 10000 },
+				                      {name: '天津',value: 5 }]
+			                }]
+				});
+				//myChart3.showLoading();
+				// 填入数据
+				/* $.ajax({
+					url: '${base}/scuser/selectSex.do',
+					sync: false,
+					type: 'post',
+					data: {
+						name: name
+					},
+					dataType: "json",
+					error: function (data) {
+						return false;
+					},
+					success: function (data) {
+						myChart3.hideLoading();
+						data = eval(data);
+						var sexPie = new Array();
+
+						for (var i = 0; i < data.length; i++) {
+							var item = eval(data[i]);
+							var it = {};
+							if (item.hasOwnProperty('gender')) {
+								it.name = item.gender;
+							}
+							if (item.hasOwnProperty('num')) {
+								it.value = item.num;
+							}
+							sexPie.push(it);
+						}
+						myChart3.setOption({
+							series: [{
+								data: sexPie
+							}]
+						});
+					}
+				}); */
+			}
+	      	
+			//ajax获取某省统计数据
+			function getCityMap(name,city){
+				var myChart4 = echarts.init(document.getElementById('main4'),'vintage');
+		        var option3 = {
+			            title: {
+			                text: '省市分布',
+			                left: 'center'
+			            },
+			            tooltip: {
+			                trigger: 'item'
+			            },
+			            legend: {
+			                orient: 'vertical',
+			                left: 'left',
+			                data:['人数']
+			            },
+			            visualMap: {
+			                min: 0,
+			                max: 1000,
+			                left: 'left',
+			                top: 'bottom',
+			                text: ['高','低'],           // 文本，默认为数值文本
+			                calculable: true
+			            },
+			            toolbox: {
+			                show: true,
+			                orient: 'vertical',
+			                left: 'right',
+			                top: 'center',
+			                feature: {
+			                    dataView: {readOnly: false},
+			                    restore: {},
+			                    saveAsImage: {}
+			                }
+			            },
+			            series: [
+			                {
+			                    name: '人数',
+			                    type: 'map',
+			                    mapType: city,
+			                    roam: true,
+			                    label: {
+			                        normal: {
+			                           show: true
+			                        },
+			                        emphasis: {
+			                           show: true
+			                        }
+			                    },
+			                    data:[]
+			                }
+			            ]
+			        };
+			        myChart4.setOption(option3);
+			}
 
 			//ajax获取性别比例统计数据
 			function getSexPie(name){
@@ -376,6 +476,9 @@
 			</div>
 			<div class="form-group col-sm-8">
 	    		<div id="main3" style="width: 750px;height:500px;"></div>
+			</div>
+			<div class="form-group col-sm-4">
+	    		<div id="main4" style="width: 400px;height:500px;"></div>
 			</div>
 		</div>
 	</form>

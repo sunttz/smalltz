@@ -36,6 +36,40 @@
 <!-- 引入地图 -->
 <script type="text/javascript" src="${base }/plugin/echarts/map/china.js"></script>
 <script type="text/javascript" src="${base }/plugin/echarts/map/anhui.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/beijing.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/chongqing.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/fujian.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/gansu.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/guangdong.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/guangxi.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/guizhou.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/hainan.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/hebei.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/heilongjiang.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/henan.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/hubei.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/hunan.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/jiangsu.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/jiangxi.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/jilin.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/liaoning.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/neimenggu.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/ningxia.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/qinghai.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/shandong.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/shanghai.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/shanxi.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/shanxi1.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/sichuan.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/tianjin.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/xianggang.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/xinjiang.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/xizang.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/yunnan.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/zhejiang.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/aomen.js"></script>
+<script type="text/javascript" src="${base }/plugin/echarts/map/taiwan.js"></script>
+
 
 <style type="text/css">
 	html, body {
