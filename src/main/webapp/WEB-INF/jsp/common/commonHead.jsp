@@ -9,8 +9,12 @@
 <!-- 在jqgrid/css/css这个目录下还有其他的主题包，可以尝试更换看效果 -->
 <link rel="stylesheet" href="${base }/plugin/jqgrid/css/css/hot-sneaks/jquery-ui-1.8.16.custom.css" />
 <!-- jquery插件包-必要 -->
-<!-- 这个是所有jquery插件的基础，首先第一个引入 -->
+<link rel="stylesheet" href="${base }/plugin/jquery-ui/jquery-ui.min.css" />
+<link rel="stylesheet" href="${base }/plugin/jquery-ui/jquery-ui.structure.min.css" />
+<link rel="stylesheet" href="${base }/plugin/jquery-ui/jquery-ui.theme.min.css" />
 <script type="text/javascript" src="${base }/plugin/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="${base }/plugin/jquery-ui/jquery-ui.min.js"></script>
+
 <!-- jqGrid插件包-必要 -->
 <script type="text/javascript" src="${base }/plugin/jqgrid/js/jquery.jqGrid.src.js"></script>
 <!-- jqGrid插件的多语言包-非必要 -->

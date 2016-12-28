@@ -6,6 +6,8 @@ import com.stt.entity.Scuser;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface ScuserService {
 
 	public Scuser findById(int id);
@@ -20,4 +22,11 @@ public interface ScuserService {
 	 * @return
 	 */
 	List<Map<String, Object>> selectBirLine(String name);
+	
+	/**
+     * 根据用户名统计地域分布
+     * @param name
+     * @return
+     */
+    List<Map<String, Object>> selectMap(@Param("name") String name);
 }

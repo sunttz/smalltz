@@ -44,4 +44,9 @@ public class ScuserServiceImpl implements ScuserService {
 	public List<Map<String, Object>> selectBirLine(String name) {
 		return scuserDao.selectBirLine(name);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectMap(String name) {
+		return scuserDao.selectMap(name);
+	}
 }

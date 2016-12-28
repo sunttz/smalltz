@@ -40,4 +40,11 @@ public interface ScuserDao {
      * @return
      */
     List<Map<String, Object>> selectBirLine(@Param("name") String name);
+    
+    /**
+     * 根据用户名统计地域分布
+     * @param name
+     * @return
+     */
+    List<Map<String, Object>> selectMap(@Param("name") String name);
 }

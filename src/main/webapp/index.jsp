@@ -53,318 +53,328 @@
 				$("#pageGrid").setGridWidth($(window).width()-200);
 			});
 
+			// 初始化提示信息框
+			$("#dialog").dialog({
+		      autoOpen: false,
+		      modal: true,
+		      show: {
+		        effect: "blind",
+		        duration: 400
+		      },
+		      hide: {
+		        effect: "explode",
+		        duration: 400
+		      },
+		      buttons: {
+		          '确定': function () {
+		              $(this).dialog("close");
+		              $("#name").css("border","1px solid red");
+		              $("#name")[0].focus();
+		          }
+		      }
+		    });
+			
 			$("#searchBtn").bind("click",function () {
 				var name = $("#name").val();
-				if(name != null && name != ""){
-					$("#pageGrid").jqGrid('setGridParam',{  // 重新加载数据
-						datatype:'json',
-						postData: {name:name},
-						page:1
-					}).trigger("reloadGrid");
+				if(name == null || name == ""){
+					$("#content").text("姓名不能为空！");
+					$("#dialog").dialog("open");
+					return false;
+				}
+				
+				$("#pageGrid").jqGrid('setGridParam', { // 重新加载数据
+					datatype : 'json',
+					postData : {
+						name : name
+					},
+					page : 1
+				}).trigger("reloadGrid");
 
-					// 用户性别比例饼图加载
-					getSexPie(name);
-					// 用户年龄分布图加载
-					getBirLine(name)
-					// 获取地域分布统计数据
-					getAreaMap(name);
-				}
+				// 用户性别比例饼图加载
+				getSexPie(name);
+				// 用户年龄分布图加载
+				getBirLine(name)
+				// 获取地域分布统计数据
+				getAreaMap(name);
+				
 			});
-			
-			
+
 			// 柱图
-	        var myChart = echarts.init(document.getElementById('main'),'vintage');
-	        // 指定图表的配置项和数据
-	        var option = {
-	            title: {
-	                text: '年龄分布'
-	            },
-	            tooltip: {},
-	            legend: {
-	                data:['年龄段']
-	            },
-	            xAxis: {
-	                data: [/*"90后","80后","70后","60后","50后","其他"*/],
-	            },
-	            yAxis:{
-				}
-				,
-	            series: [{
-	                name: '数量',
-	                type: 'bar',
-					label: {
-						normal: {
-							show: true,
-							position: 'inside'
+			var myChart = echarts.init(document.getElementById('main'),
+					'vintage');
+			// 指定图表的配置项和数据
+			var option = {
+				title : {
+					text : '年龄分布'
+				},
+				tooltip : {},
+				legend : {
+					data : [ '年龄段' ]
+				},
+				xAxis : {
+					data : [/*"90后","80后","70后","60后","50后","其他"*/],
+				},
+				yAxis : {},
+				series : [ {
+					name : '数量',
+					type : 'bar',
+					label : {
+						normal : {
+							show : true,
+							position : 'inside'
 						}
 					},
-	                data: [/*0, 0, 0, 0, 0, 0*/]
-	            }]
-	        };
-	        // 使用刚指定的配置项和数据显示图表。
-	        myChart.setOption(option);
-	        
-	        // 饼图
-	        var myChart2 = echarts.init(document.getElementById('main2'),'vintage');
-	        option = {
-	        	    title : {
-	        	        text: '性别比例',
-	        	        //subtext: '仅供参考',
-	        	        x:'center'
-	        	    },
-	        	    tooltip : {
-	        	        trigger: 'item',
-	        	        formatter: "{a} <br/>{b} : {c} ({d}%)"
-	        	    },
-	        	    legend: {
-	        	        orient: 'vertical',
-	        	        left: 'left',
-	        	        data: ['男','女','未知']
-	        	    },
-	        	    series : [
-	        	        {
-	        	            name: '性别',
-	        	            type: 'pie',
-	        	            radius : '55%',
-	        	            center: ['50%', '60%'],
-	        	            data:[
-	        	                /*{value:385, name:'男'},
-	        	                {value:310, name:'女'},
-	        	                {value:234, name:'未知'}*/
-	        	            ],
-	        	            itemStyle: {
-	        	                emphasis: {
-	        	                    shadowBlur: 10,
-	        	                    shadowOffsetX: 0,
-	        	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-	        	                },
-								normal:{
-									label:{
-										show: true,
-										formatter: '{b} : {c} ({d}%)'
-									},
-									labelLine :{show:true}
-								}
+					data : [/*0, 0, 0, 0, 0, 0*/]
+				} ]
+			};
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+
+			// 饼图
+			var myChart2 = echarts.init(document.getElementById('main2'),
+					'vintage');
+			option = {
+				title : {
+					text : '性别比例',
+					//subtext: '仅供参考',
+					x : 'center'
+				},
+				tooltip : {
+					trigger : 'item',
+					formatter : "{a} <br/>{b} : {c} ({d}%)"
+				},
+				legend : {
+					orient : 'vertical',
+					left : 'left',
+					data : [ '男', '女', '未知' ]
+				},
+				series : [ {
+					name : '性别',
+					type : 'pie',
+					radius : '55%',
+					center : [ '50%', '60%' ],
+					data : [
+					/*{value:385, name:'男'},
+					{value:310, name:'女'},
+					{value:234, name:'未知'}*/
+					],
+					itemStyle : {
+						emphasis : {
+							shadowBlur : 10,
+							shadowOffsetX : 0,
+							shadowColor : 'rgba(0, 0, 0, 0.5)'
+						},
+						normal : {
+							label : {
+								show : true,
+								formatter : '{b} : {c} ({d}%)'
+							},
+							labelLine : {
+								show : true
 							}
-	        	        }
-	        	    ]
-	        	};
-	        myChart2.setOption(option);
-	        
-	        // 分布图
-	        var myChart3 = echarts.init(document.getElementById('main3'),'vintage');
-	        var option3 = {
-	            title: {
-	                text: '地域分布',
-	                //subtext: '纯属虚构',
-	                left: 'center'
-	            },
-	            tooltip: {
-	                trigger: 'item'
-	            },
-	            legend: {
-	                orient: 'vertical',
-	                left: 'left',
-	                data:['人数']
-	            },
-	            visualMap: {
-	                min: 0,
-	                max: 2500,
-	                left: 'left',
-	                top: 'bottom',
-	                text: ['高','低'],           // 文本，默认为数值文本
-	                calculable: true
-	            },
-	            toolbox: {
-	                show: true,
-	                orient: 'vertical',
-	                left: 'right',
-	                top: 'center',
-	                feature: {
-	                    dataView: {readOnly: false},
-	                    restore: {},
-	                    saveAsImage: {}
-	                }
-	            },
-	            series: [
-	                {
-	                    name: '人数',
-	                    type: 'map',
-	                    mapType: 'china',
-	                    roam: true,
-	                    label: {
-	                        normal: {
-	                            show: true
-	                        },
-	                        emphasis: {
-	                            show: true
-	                        }
-	                    },
-	                    data:[
-	                        /*{name: '北京',value: 10000 },
-	                        {name: '天津',value: 5 },
-	                        {name: '上海',value: randomData() },
-	                        {name: '重庆',value: randomData() },
-	                        {name: '河北',value: randomData() },
-	                        {name: '河南',value: randomData() },
-	                        {name: '云南',value: randomData() },
-	                        {name: '辽宁',value: randomData() },
-	                        {name: '黑龙江',value: randomData() },
-	                        {name: '湖南',value: randomData() },
-	                        {name: '安徽',value: randomData() },
-	                        {name: '山东',value: randomData() },
-	                        {name: '新疆',value: randomData() },
-	                        {name: '江苏',value: randomData() },
-	                        {name: '浙江',value: randomData() },
-	                        {name: '江西',value: randomData() },
-	                        {name: '湖北',value: randomData() },
-	                        {name: '广西',value: randomData() },
-	                        {name: '甘肃',value: randomData() },
-	                        {name: '山西',value: randomData() },
-	                        {name: '内蒙古',value: randomData() },
-	                        {name: '陕西',value: randomData() },
-	                        {name: '吉林',value: randomData() },
-	                        {name: '福建',value: randomData() },
-	                        {name: '贵州',value: randomData() },
-	                        {name: '广东',value: randomData() },
-	                        {name: '青海',value: randomData() },
-	                        {name: '西藏',value: randomData() },
-	                        {name: '四川',value: randomData() },
-	                        {name: '宁夏',value: randomData() },
-	                        {name: '海南',value: randomData() },
-	                        {name: '台湾',value: randomData() },
-	                        {name: '香港',value: randomData() },
-	                        {name: '澳门',value: randomData() } */
-	                    ]
-	                }
-	            ]
-	        };
-	        //myChart3.showLoading();
-	        myChart3.setOption(option3);
-			
-	        myChart3.on('click', function (params) {
-	            var city = params.name;
-	            getCityMap('',city);
-	        });
-	        
-	      	//ajax获取全国分布统计数据
-			function getAreaMap(name){
-				myChart3.setOption({
-					series: [{
-			                    data:[{name: '北京',value: 10000 },
-				                      {name: '天津',value: 5 }]
-			                }]
-				});
-				//myChart3.showLoading();
-				// 填入数据
-				/* $.ajax({
-					url: '${base}/scuser/selectSex.do',
-					sync: false,
-					type: 'post',
-					data: {
-						name: name
+						}
+					}
+				} ]
+			};
+			myChart2.setOption(option);
+
+			// 分布图
+			var myChart3 = echarts.init(document.getElementById('main3'),
+					'vintage');
+			var option3 = {
+				title : {
+					text : '地域分布',
+					//subtext: '纯属虚构',
+					left : 'center'
+				},
+				tooltip : {
+					trigger : 'item'
+				},
+				legend : {
+					orient : 'vertical',
+					left : 'left',
+					data : [ '人数' ]
+				},
+				visualMap : {
+					min : 0,
+					max : 50,
+					left : 'left',
+					top : 'bottom',
+					text : [ '高', '低' ], // 文本，默认为数值文本
+					calculable : true
+				},
+				toolbox : {
+					show : true,
+					orient : 'vertical',
+					left : 'right',
+					top : 'center',
+					feature : {
+						dataView : {
+							readOnly : false
+						},
+						restore : {},
+						saveAsImage : {}
+					}
+				},
+				series : [ {
+					name : '人数',
+					type : 'map',
+					mapType : 'china',
+					roam : true,
+					label : {
+						normal : {
+							show : true
+						},
+						emphasis : {
+							show : true
+						}
 					},
-					dataType: "json",
-					error: function (data) {
+					data : [
+					/*{name: '北京',value: 10000 },
+					{name: '天津',value: 5 },
+					{name: '上海',value: randomData() },
+					{name: '重庆',value: randomData() },
+					{name: '河北',value: randomData() },
+					{name: '河南',value: randomData() },
+					{name: '云南',value: randomData() },
+					{name: '辽宁',value: randomData() },
+					{name: '黑龙江',value: randomData() },
+					{name: '湖南',value: randomData() },
+					{name: '安徽',value: randomData() },
+					{name: '山东',value: randomData() },
+					{name: '新疆',value: randomData() },
+					{name: '江苏',value: randomData() },
+					{name: '浙江',value: randomData() },
+					{name: '江西',value: randomData() },
+					{name: '湖北',value: randomData() },
+					{name: '广西',value: randomData() },
+					{name: '甘肃',value: randomData() },
+					{name: '山西',value: randomData() },
+					{name: '内蒙古',value: randomData() },
+					{name: '陕西',value: randomData() },
+					{name: '吉林',value: randomData() },
+					{name: '福建',value: randomData() },
+					{name: '贵州',value: randomData() },
+					{name: '广东',value: randomData() },
+					{name: '青海',value: randomData() },
+					{name: '西藏',value: randomData() },
+					{name: '四川',value: randomData() },
+					{name: '宁夏',value: randomData() },
+					{name: '海南',value: randomData() },
+					{name: '台湾',value: randomData() },
+					{name: '香港',value: randomData() },
+					{name: '澳门',value: randomData() } */
+					]
+				} ]
+			};
+			//myChart3.showLoading();
+			myChart3.setOption(option3);
+
+			myChart3.on('click', function(params) {
+				var city = params.name;
+				getCityMap('', city);
+			});
+
+			//ajax获取全国分布统计数据
+			function getAreaMap(name) {
+				myChart3.showLoading();
+				// 填入数据
+				$.ajax({
+					url : '${base}/scuser/selectMap.do',
+					sync : false,
+					type : 'post',
+					data : {
+						name : name
+					},
+					dataType : "json",
+					error : function(data) {
 						return false;
 					},
-					success: function (data) {
+					success : function(data) {
 						myChart3.hideLoading();
 						data = eval(data);
-						var sexPie = new Array();
-
-						for (var i = 0; i < data.length; i++) {
-							var item = eval(data[i]);
-							var it = {};
-							if (item.hasOwnProperty('gender')) {
-								it.name = item.gender;
-							}
-							if (item.hasOwnProperty('num')) {
-								it.value = item.num;
-							}
-							sexPie.push(it);
-						}
 						myChart3.setOption({
-							series: [{
-								data: sexPie
-							}]
+							series : [ {
+								data : data
+							} ]
 						});
 					}
-				}); */
+				});
 			}
-	      	
+
 			//ajax获取某省统计数据
-			function getCityMap(name,city){
-				var myChart4 = echarts.init(document.getElementById('main4'),'vintage');
-		        var option3 = {
-			            title: {
-			                text: '省市分布',
-			                left: 'center'
-			            },
-			            tooltip: {
-			                trigger: 'item'
-			            },
-			            legend: {
-			                orient: 'vertical',
-			                left: 'left',
-			                data:['人数']
-			            },
-			            visualMap: {
-			                min: 0,
-			                max: 1000,
-			                left: 'left',
-			                top: 'bottom',
-			                text: ['高','低'],           // 文本，默认为数值文本
-			                calculable: true
-			            },
-			            toolbox: {
-			                show: true,
-			                orient: 'vertical',
-			                left: 'right',
-			                top: 'center',
-			                feature: {
-			                    dataView: {readOnly: false},
-			                    restore: {},
-			                    saveAsImage: {}
-			                }
-			            },
-			            series: [
-			                {
-			                    name: '人数',
-			                    type: 'map',
-			                    mapType: city,
-			                    roam: true,
-			                    label: {
-			                        normal: {
-			                           show: true
-			                        },
-			                        emphasis: {
-			                           show: true
-			                        }
-			                    },
-			                    data:[]
-			                }
-			            ]
-			        };
-			        myChart4.setOption(option3);
+			function getCityMap(name, city) {
+				var myChart4 = echarts.init(document.getElementById('main4'),
+						'vintage');
+				var option3 = {
+					title : {
+						text : '省市分布',
+						left : 'center'
+					},
+					tooltip : {
+						trigger : 'item'
+					},
+					legend : {
+						orient : 'vertical',
+						left : 'left',
+						data : [ '人数' ]
+					},
+					visualMap : {
+						min : 0,
+						max : 1000,
+						left : 'left',
+						top : 'bottom',
+						text : [ '高', '低' ], // 文本，默认为数值文本
+						calculable : true
+					},
+					toolbox : {
+						show : true,
+						orient : 'vertical',
+						left : 'right',
+						top : 'center',
+						feature : {
+							dataView : {
+								readOnly : false
+							},
+							restore : {},
+							saveAsImage : {}
+						}
+					},
+					series : [ {
+						name : '人数',
+						type : 'map',
+						mapType : city,
+						roam : true,
+						label : {
+							normal : {
+								show : true
+							},
+							emphasis : {
+								show : true
+							}
+						},
+						data : []
+					} ]
+				};
+				myChart4.setOption(option3);
 			}
 
 			//ajax获取性别比例统计数据
-			function getSexPie(name){
+			function getSexPie(name) {
 				myChart2.showLoading();
 				// 填入数据
 				$.ajax({
-					url: '${base}/scuser/selectSex.do',
-					sync: false,
-					type: 'post',
-					data: {
-						name: name
+					url : '${base}/scuser/selectSex.do',
+					sync : false,
+					type : 'post',
+					data : {
+						name : name
 					},
-					dataType: "json",
-					error: function (data) {
+					dataType : "json",
+					error : function(data) {
 						return false;
 					},
-					success: function (data) {
+					success : function(data) {
 						myChart2.hideLoading();
 						data = eval(data);
 						var sexPie = new Array();
@@ -381,30 +391,30 @@
 							sexPie.push(it);
 						}
 						myChart2.setOption({
-							series: [{
-								data: sexPie
-							}]
+							series : [ {
+								data : sexPie
+							} ]
 						});
 					}
 				});
 			}
 
 			//ajax获取年龄分布统计数据
-			function getBirLine(name){
+			function getBirLine(name) {
 				myChart.showLoading();
 				// 填入数据
 				$.ajax({
-					url: '${base}/scuser/selectBir.do',
-					sync: false,
-					type: 'post',
-					data: {
-						name: name
+					url : '${base}/scuser/selectBir.do',
+					sync : false,
+					type : 'post',
+					data : {
+						name : name
 					},
-					dataType: "json",
-					error: function (data) {
+					dataType : "json",
+					error : function(data) {
 						return false;
 					},
-					success: function (data) {
+					success : function(data) {
 						myChart.hideLoading();
 						data = eval(data);
 						var titles = new Array();
@@ -416,35 +426,27 @@
 							list.push(item.num);
 						}
 						myChart.setOption({
-							xAxis: {
-								data: titles
+							xAxis : {
+								data : titles
 							},
-							series: [{
-								data: list
-							}]
+							series : [ {
+								data : list
+							} ]
 						});
 					}
 				});
 			}
 
-
-
-
-
-
-
-
-
 		});
-		
-		
-
 	</script>
 </head>
 
 <body>
 	<form action="">
 		<div class="container" style="margin: 10px 10px 10px 10px">
+			<div id="dialog" title="提示">
+			  <p id="content"></p>
+			</div>
 			<div class="form-group">
 				<div class="col-sm-12" style="margin-bottom: 5px;">
 					<label for="name" class="control-label pull-left" style="margin: 5px 0px 0px 10px;">姓名：</label>
@@ -481,6 +483,8 @@
 	    		<div id="main4" style="width: 400px;height:500px;"></div>
 			</div>
 		</div>
+		
 	</form>
+	
 </body>
 </html>

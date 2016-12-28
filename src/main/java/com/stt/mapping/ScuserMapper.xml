@@ -100,6 +100,25 @@
 		GROUP BY bir
 		ORDER BY bir DESC
 	</select>
+	
+	<!-- 根据用户名统计地域分布 -->
+	<select id="selectMap" parameterType="java.lang.String"
+			resultType="java.util.HashMap">
+		SELECT province name, count(province) value
+		FROM (SELECT p.province,
+		             CASE WHEN p.province = '北京' THEN p.area ELSE p.city END
+		                city
+		      FROM scuser s LEFT JOIN place p ON s.District4 = p.areaID
+		      WHERE  1 = 1
+			      <if test="name != null and name !=''">
+			      	AND NAME = #{name,jdbcType=VARCHAR}
+			      </if>
+		            AND s.District4 != ''
+		            AND s.District4 != '-'
+		            AND LENGTH(s.district4) = 6
+		            AND p.area != '') t
+		GROUP BY province;
+	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from scuser
