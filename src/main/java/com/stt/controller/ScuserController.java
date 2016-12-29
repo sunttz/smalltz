@@ -136,4 +136,21 @@ public class ScuserController {
         return json;
     }
 
+    /**
+     * 根据用户名统计城市分布
+     * @return
+     */
+    @RequestMapping(value = "/selectCityMap")
+    @ResponseBody
+    public Object selectCityMap(HttpServletRequest request){
+        String name = request.getParameter("name");
+        String province = request.getParameter("province");
+        if(StringUtils.isEmpty(name) || StringUtils.isEmpty(province)){
+            return null;
+        }
+        List<Map<String, Object>> mapList = scuserService.selectCityMap(name,province);
+        JSONArray json = JSONArray.fromObject(mapList);
+        return json;
+    }
+
 }

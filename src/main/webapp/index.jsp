@@ -96,6 +96,24 @@
 				getBirLine(name)
 				// 获取地域分布统计数据
 				getAreaMap(name);
+				// 清空省地图数据
+				myChart4.setOption({
+					series : [ {
+						name : '人数',
+						type : 'map',
+						mapType : '',
+						roam : true,
+						label : {
+							normal : {
+								show : true
+							},
+							emphasis : {
+								show : true
+							}
+						},
+						data : []
+					} ]
+				});
 				
 			});
 
@@ -184,7 +202,7 @@
 			var option3 = {
 				title : {
 					text : '地域分布',
-					//subtext: '纯属虚构',
+					subtext: '数据不全，仅供参考',
 					left : 'center'
 				},
 				tooltip : {
@@ -197,7 +215,7 @@
 				},
 				visualMap : {
 					min : 0,
-					max : 50,
+					max : 100,
 					left : 'left',
 					top : 'bottom',
 					text : [ '高', '低' ], // 文本，默认为数值文本
@@ -271,16 +289,70 @@
 			myChart3.setOption(option3);
 
 			myChart3.on('click', function(params) {
-				var city = params.name;
-				getCityMap('', city);
+				var prov = params.name;
+				var name = $("#name").val();
+				getCityMap(name, prov);
 			});
+
+			var myChart4 = echarts.init(document.getElementById('main4'),'vintage');
+			var option4 = {
+				title : {
+					text : '省市分布',
+					left : 'center'
+				},
+				tooltip : {
+					trigger : 'item'
+				},
+				legend : {
+					orient : 'vertical',
+					left : 'left',
+					data : [ '人数' ]
+				},
+				visualMap : {
+					min : 0,
+					max : 50,
+					left : 'left',
+					top : 'bottom',
+					text : [ '高', '低' ], // 文本，默认为数值文本
+					calculable : true
+				},
+				toolbox : {
+					show : true,
+					orient : 'vertical',
+					left : 'right',
+					top : 'center',
+					feature : {
+						dataView : {
+							readOnly : false
+						},
+						restore : {},
+						saveAsImage : {}
+					}
+				},
+				series : [ {
+					name : '人数',
+					type : 'map',
+					//mapType : city,
+					roam : true,
+					label : {
+						normal : {
+							show : true
+						},
+						emphasis : {
+							show : true
+						}
+					},
+					data : []
+				} ]
+			};
+			myChart4.setOption(option4);
 
 			//ajax获取全国分布统计数据
 			function getAreaMap(name) {
 				myChart3.showLoading();
 				// 填入数据
 				$.ajax({
-					url : '${base}/scuser/selectMap.do',
+					url : '${context}/scuser/selectMap.do',
 					sync : false,
 					type : 'post',
 					data : {
@@ -298,65 +370,52 @@
 								data : data
 							} ]
 						});
+
 					}
 				});
 			}
 
 			//ajax获取某省统计数据
-			function getCityMap(name, city) {
-				var myChart4 = echarts.init(document.getElementById('main4'),
-						'vintage');
-				var option3 = {
-					title : {
-						text : '省市分布',
-						left : 'center'
+			function getCityMap(name, prov) {
+				if(name == null || name == "" || prov == null || prov == ""){
+					return false;
+				}
+				myChart4.showLoading();
+				// 填入数据
+				$.ajax({
+					url : '${context}/scuser/selectCityMap.do',
+					sync : false,
+					type : 'post',
+					data : {
+						name : name,
+						province : prov
 					},
-					tooltip : {
-						trigger : 'item'
+					dataType : "json",
+					error : function(data) {
+						return false;
 					},
-					legend : {
-						orient : 'vertical',
-						left : 'left',
-						data : [ '人数' ]
-					},
-					visualMap : {
-						min : 0,
-						max : 1000,
-						left : 'left',
-						top : 'bottom',
-						text : [ '高', '低' ], // 文本，默认为数值文本
-						calculable : true
-					},
-					toolbox : {
-						show : true,
-						orient : 'vertical',
-						left : 'right',
-						top : 'center',
-						feature : {
-							dataView : {
-								readOnly : false
-							},
-							restore : {},
-							saveAsImage : {}
-						}
-					},
-					series : [ {
-						name : '人数',
-						type : 'map',
-						mapType : city,
-						roam : true,
-						label : {
-							normal : {
-								show : true
-							},
-							emphasis : {
-								show : true
-							}
-						},
-						data : []
-					} ]
-				};
-				myChart4.setOption(option3);
+					success : function(data) {
+						myChart4.hideLoading();
+						data = eval(data);
+						myChart4.setOption({
+							series : [ {
+								name : '人数',
+								type : 'map',
+								mapType : prov,
+								roam : true,
+								label : {
+									normal : {
+										show : true
+									},
+									emphasis : {
+										show : true
+									}
+								},
+								data : data
+							} ]
+						});
+					}
+				});
 			}
 
 			//ajax获取性别比例统计数据
@@ -364,7 +423,7 @@
 				myChart2.showLoading();
 				// 填入数据
 				$.ajax({
-					url : '${base}/scuser/selectSex.do',
+					url : '${context}/scuser/selectSex.do',
 					sync : false,
 					type : 'post',
 					data : {
@@ -404,7 +463,7 @@
 				myChart.showLoading();
 				// 填入数据
 				$.ajax({
-					url : '${base}/scuser/selectBir.do',
+					url : '${context}/scuser/selectBir.do',
 					sync : false,
 					type : 'post',
 					data : {

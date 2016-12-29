@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -48,5 +49,10 @@ public class ScuserServiceImpl implements ScuserService {
 	@Override
 	public List<Map<String, Object>> selectMap(String name) {
 		return scuserDao.selectMap(name);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCityMap(@Param("name") String name, @Param("province") String province) {
+		return scuserDao.selectCityMap(name,province);
 	}
 }

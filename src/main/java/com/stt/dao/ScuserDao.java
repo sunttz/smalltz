@@ -47,4 +47,11 @@ public interface ScuserDao {
      * @return
      */
     List<Map<String, Object>> selectMap(@Param("name") String name);
+
+    /**
+     * 根据用户名统计城市分布
+     * @param name
+     * @return
+     */
+    List<Map<String, Object>> selectCityMap(@Param("name") String name,@Param("province") String province);
 }

@@ -120,6 +120,29 @@
 		GROUP BY province;
 	</select>
 
+	<!-- 根据用户名统计城市分布 -->
+	<select id="selectCityMap" parameterType="java.lang.String"
+			resultType="java.util.HashMap">
+		SELECT city name, count(city) value
+		FROM (SELECT p.province,
+			CASE WHEN p.province = '北京' THEN p.area ELSE p.city END
+			city
+			FROM scuser s LEFT JOIN place p ON s.District4 = p.areaID
+			WHERE     1 = 1
+			<if test="name != null and name !=''">
+				AND NAME = #{name,jdbcType=VARCHAR}
+			</if>
+			AND s.District4 != ''
+			AND s.District4 != '-'
+			AND LENGTH(s.district4) = 6
+			AND p.area != '') t
+		WHERE 1 = 1
+		<if test="province != null and province !=''">
+			AND t.province = #{province,jdbcType=VARCHAR}
+		</if>
+		GROUP BY city;
+	</select>
+
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from scuser
 		where id = #{id,jdbcType=INTEGER}
