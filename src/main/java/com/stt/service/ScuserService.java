@@ -36,4 +36,11 @@ public interface ScuserService {
 	 * @return
 	 */
 	List<Map<String, Object>> selectCityMap(@Param("name") String name,@Param("province") String province);
+	
+	/**
+     * 根据用户名查询排名
+     * @param name
+     * @return
+     */
+    Map<String, Object> selectRank(@Param("name") String name);
 }

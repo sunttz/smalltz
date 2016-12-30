@@ -55,4 +55,9 @@ public class ScuserServiceImpl implements ScuserService {
 	public List<Map<String, Object>> selectCityMap(@Param("name") String name, @Param("province") String province) {
 		return scuserDao.selectCityMap(name,province);
 	}
+
+	@Override
+	public Map<String, Object> selectRank(String name) {
+		return scuserDao.selectRank(name);
+	}
 }

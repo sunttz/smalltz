@@ -6,6 +6,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<script type="text/javascript">
 		$(function(){
+			// 跑马灯
+			$("#marquee").marquee({pauseSpeed: 1000});
+			
 			var jqOption = {
 								url : 'scuser/userList.do',//组件创建完成之后请求数据的url
 								datatype : "json",//请求数据返回的类型。可选json,xml,txt
@@ -114,7 +117,8 @@
 						data : []
 					} ]
 				});
-				
+				//ajax获取名字排行
+				getNameRank(name);
 			});
 
 			// 柱图
@@ -495,6 +499,40 @@
 					}
 				});
 			}
+			
+			//ajax获取名字排行
+			function getNameRank(name) {
+				$.ajax({
+					url : '${context}/scuser/selectRank.do',
+					sync : false,
+					type : 'post',
+					data : {
+						name : name
+					},
+					dataType : "json",
+					error : function(data) {
+						return false;
+					},
+					success : function(data) {
+						data = eval(data);
+						data = data[0];
+						var rowno = data.rowno;
+						var name = data.name;
+						var num = data.num;
+						var str = "姓名【"+name+"】，共有【"+num+"】人使用此名，全国重复率排名【"+rowno+"】，";
+						if(num==1){
+							str += "请珍惜此人，Ta就是那位独一无二的人！";
+						}else if(num > 1 && num <= 10){
+							str += "此人是稀有动物，请好好呵护Ta！";
+						}else if(num > 10 && num < 100){
+							str += "此名字普普通通简简单单！";
+						}else if(num >= 100){
+							str += "已经烂大街的"+name+"，多你一个也无妨！";
+						}
+						$("#marquee").html("<li><strong>"+str+"</strong></li>").marquee({pauseSpeed: 1000});
+					}
+				});
+			}
 
 		});
 	</script>
@@ -517,8 +555,16 @@
 						<button type="button" class="btn btn-primary pull-right"
 							id="searchBtn">检索</button>
 					</div>
+					<div class="col-sm-5">
+						<div class="container" style="margin-top:3px;width:500px;">
+						    <ul id="marquee" class="marquee well">
+						      <li><strong>全国重名排行榜TOP10：No10.刘洋【7016】 No9.张勇【7301】 No8.王勇【7411】 No7.李强【7576】 No6.刘伟【8288】 No5.张磊【9093】 No4.李伟【9247】 No3.王磊【9756】 No2.王伟【11319】 No1.张伟【11640】</strong></li>
+						    </ul>
+						</div>
+					</div>
 				</div>
 			</div>
+			
 			<div class="form-group">
 				<div class="col-sm-12">
 					<table id="pageGrid" rel="jqgridForm" class="jqgrid"></table>
@@ -527,6 +573,7 @@
 			</div>
 			<br/>
 		</div>
+		<dir style="clear:both;"></dir>
 		<div class="container" style="margin: 10px 10px 10px 10px">
 			<div class="form-group col-sm-5">
 				<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->

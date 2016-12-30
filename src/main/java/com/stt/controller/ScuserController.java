@@ -153,4 +153,19 @@ public class ScuserController {
         return json;
     }
 
+    /**
+     * 根据用户名统计排名
+     * @return
+     */
+    @RequestMapping(value = "/selectRank")
+    @ResponseBody
+    public Object selectRank(HttpServletRequest request){
+        String name = request.getParameter("name");
+        if(StringUtils.isEmpty(name)){
+            return null;
+        }
+        Map<String, Object> mapList = scuserService.selectRank(name);
+        JSONArray json = JSONArray.fromObject(mapList);
+        return json;
+    }
 }

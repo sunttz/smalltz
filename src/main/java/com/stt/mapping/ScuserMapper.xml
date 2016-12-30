@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="GBK" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.stt.dao.ScuserDao">
 	<resultMap id="BaseResultMap" type="com.stt.entity.Scuser">
@@ -52,7 +52,7 @@
 		from scuser
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÊü•ËØ¢ -->
+	<!-- ∏˘æ›”√ªß√˚≤È—Ø -->
 	<select id="selectUserByName" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
 		SELECT 
@@ -63,14 +63,14 @@
 			AND NAME = #{name,jdbcType=VARCHAR}
 		</if>
 	</select>
-	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÁªüËÆ°Áî∑Â•≥ÊØî‰æã -->
+	<!-- ∏˘æ›”√ªß√˚Õ≥º∆ƒ–≈Æ±»¿˝ -->
 	<select id="selectSexPie" parameterType="java.lang.String"
 			resultType="java.util.HashMap">
 		SELECT gender, count(gender) num
 			FROM (SELECT CASE Gender
-			WHEN 'M' THEN 'Áî∑'
-			WHEN 'F' THEN 'Â•≥'
-			ELSE 'Êú™Áü•' END gender
+			WHEN 'M' THEN 'ƒ–'
+			WHEN 'F' THEN '≈Æ'
+			ELSE 'Œ¥÷™' END gender
 			FROM scuser
 			WHERE 1=1
 			<if test="name != null and name !=''">
@@ -79,17 +79,17 @@
 			) t
 		GROUP BY gender
 	</select>
-	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÁªüËÆ°Âπ¥ÈæÑÂàÜÂ∏É -->
+	<!-- ∏˘æ›”√ªß√˚Õ≥º∆ƒÍ¡‰∑÷≤º -->
 	<select id="selectBirLine" parameterType="java.lang.String"
 			resultType="java.util.HashMap">
 		SELECT bir,count(bir) num
 			FROM (SELECT CASE left(birthday, 3)
-			WHEN '199' THEN '90Âêé'
-			WHEN '198' THEN '80Âêé'
-			WHEN '197' THEN '70Âêé'
-			WHEN '196' THEN '60Âêé'
-			WHEN '195' THEN '50Âêé'
-			ELSE ' ÂÖ∂‰ªñ'
+			WHEN '199' THEN '90∫Û'
+			WHEN '198' THEN '80∫Û'
+			WHEN '197' THEN '70∫Û'
+			WHEN '196' THEN '60∫Û'
+			WHEN '195' THEN '50∫Û'
+			ELSE ' ∆‰À˚'
 			END bir
 			FROM scuser
 			WHERE 1 = 1
@@ -101,12 +101,12 @@
 		ORDER BY bir DESC
 	</select>
 	
-	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÁªüËÆ°Âú∞ÂüüÂàÜÂ∏É -->
+	<!-- ∏˘æ›”√ªß√˚Õ≥º∆µÿ”Ú∑÷≤º -->
 	<select id="selectMap" parameterType="java.lang.String"
 			resultType="java.util.HashMap">
 		SELECT province name, count(province) value
 		FROM (SELECT p.province,
-		             CASE WHEN p.province = 'Âåó‰∫¨' THEN p.area ELSE p.city END
+		             CASE WHEN p.province = '±±æ©' THEN p.area ELSE p.city END
 		                city
 		      FROM scuser s LEFT JOIN place p ON s.District4 = p.areaID
 		      WHERE  1 = 1
@@ -120,12 +120,12 @@
 		GROUP BY province;
 	</select>
 
-	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÁªüËÆ°ÂüéÂ∏ÇÂàÜÂ∏É -->
+	<!-- ∏˘æ›”√ªß√˚Õ≥º∆≥« –∑÷≤º -->
 	<select id="selectCityMap" parameterType="java.lang.String"
 			resultType="java.util.HashMap">
 		SELECT city name, count(city) value
 		FROM (SELECT p.province,
-			CASE WHEN p.province = 'Âåó‰∫¨' THEN p.area ELSE p.city END
+			CASE WHEN p.province = '±±æ©' THEN p.area ELSE p.city END
 			city
 			FROM scuser s LEFT JOIN place p ON s.District4 = p.areaID
 			WHERE     1 = 1
@@ -141,6 +141,17 @@
 			AND t.province = #{province,jdbcType=VARCHAR}
 		</if>
 		GROUP BY city;
+	</select>
+	
+	<!-- ∏˘æ›”√ªß√˚≤È—Ø≈≈√˚ -->
+	<select id="selectRank" parameterType="java.lang.String"
+			resultType="java.util.HashMap">
+		SELECT *
+		FROM name_num
+		WHERE 1 = 1
+		<if test="name != null and name !=''">
+			AND NAME = #{name,jdbcType=VARCHAR}
+		</if>
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

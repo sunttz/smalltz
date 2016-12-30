@@ -76,6 +76,9 @@
 <script type="text/javascript" src="${base }/plugin/echarts/map/aomen.js"></script>
 <script type="text/javascript" src="${base }/plugin/echarts/map/taiwan.js"></script>
 
+<!-- jquery插件 -->
+<script type="text/javascript" src="${context }/plugin/jquery/jquery.marquee.min.js"></script>
+<link type="text/css" href="${context }/plugin/jquery/jquery.marquee.min.css" rel="stylesheet" media="all" />
 
 <style type="text/css">
 	html, body {
