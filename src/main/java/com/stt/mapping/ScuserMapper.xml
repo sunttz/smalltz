@@ -52,7 +52,7 @@
 		from scuser
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<!-- ∏˘æ›”√ªß√˚≤È—Ø -->
+	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÊü•ËØ¢ -->
 	<select id="selectUserByName" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
 		SELECT 
@@ -63,14 +63,14 @@
 			AND NAME = #{name,jdbcType=VARCHAR}
 		</if>
 	</select>
-	<!-- ∏˘æ›”√ªß√˚Õ≥º∆ƒ–≈Æ±»¿˝ -->
+	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÁªüËÆ°Áî∑Â•≥ÊØî‰æã -->
 	<select id="selectSexPie" parameterType="java.lang.String"
 			resultType="java.util.HashMap">
 		SELECT gender, count(gender) num
 			FROM (SELECT CASE Gender
-			WHEN 'M' THEN 'ƒ–'
-			WHEN 'F' THEN '≈Æ'
-			ELSE 'Œ¥÷™' END gender
+			WHEN 'M' THEN 'Áî∑'
+			WHEN 'F' THEN 'Â•≥'
+			ELSE 'Êú™Áü•' END gender
 			FROM scuser
 			WHERE 1=1
 			<if test="name != null and name !=''">
@@ -79,17 +79,17 @@
 			) t
 		GROUP BY gender
 	</select>
-	<!-- ∏˘æ›”√ªß√˚Õ≥º∆ƒÍ¡‰∑÷≤º -->
+	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÁªüËÆ°Âπ¥ÈæÑÂàÜÂ∏É -->
 	<select id="selectBirLine" parameterType="java.lang.String"
 			resultType="java.util.HashMap">
 		SELECT bir,count(bir) num
 			FROM (SELECT CASE left(birthday, 3)
-			WHEN '199' THEN '90∫Û'
-			WHEN '198' THEN '80∫Û'
-			WHEN '197' THEN '70∫Û'
-			WHEN '196' THEN '60∫Û'
-			WHEN '195' THEN '50∫Û'
-			ELSE ' ∆‰À˚'
+			WHEN '199' THEN '90Âêé'
+			WHEN '198' THEN '80Âêé'
+			WHEN '197' THEN '70Âêé'
+			WHEN '196' THEN '60Âêé'
+			WHEN '195' THEN '50Âêé'
+			ELSE ' ÂÖ∂‰ªñ'
 			END bir
 			FROM scuser
 			WHERE 1 = 1
@@ -101,12 +101,12 @@
 		ORDER BY bir DESC
 	</select>
 	
-	<!-- ∏˘æ›”√ªß√˚Õ≥º∆µÿ”Ú∑÷≤º -->
+	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÁªüËÆ°Âú∞ÂüüÂàÜÂ∏É -->
 	<select id="selectMap" parameterType="java.lang.String"
 			resultType="java.util.HashMap">
 		SELECT province name, count(province) value
 		FROM (SELECT p.province,
-		             CASE WHEN p.province = '±±æ©' THEN p.area ELSE p.city END
+		             CASE WHEN p.province = 'Âåó‰∫¨' THEN p.area ELSE p.city END
 		                city
 		      FROM scuser s LEFT JOIN place p ON s.District4 = p.areaID
 		      WHERE  1 = 1
@@ -120,12 +120,12 @@
 		GROUP BY province;
 	</select>
 
-	<!-- ∏˘æ›”√ªß√˚Õ≥º∆≥« –∑÷≤º -->
+	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÁªüËÆ°ÂüéÂ∏ÇÂàÜÂ∏É -->
 	<select id="selectCityMap" parameterType="java.lang.String"
 			resultType="java.util.HashMap">
 		SELECT city name, count(city) value
 		FROM (SELECT p.province,
-			CASE WHEN p.province = '±±æ©' THEN p.area ELSE p.city END
+			CASE WHEN p.province = 'Âåó‰∫¨' THEN p.area ELSE p.city END
 			city
 			FROM scuser s LEFT JOIN place p ON s.District4 = p.areaID
 			WHERE     1 = 1
@@ -143,7 +143,7 @@
 		GROUP BY city;
 	</select>
 	
-	<!-- ∏˘æ›”√ªß√˚≤È—Ø≈≈√˚ -->
+	<!-- Ê†πÊçÆÁî®Êà∑ÂêçÊü•ËØ¢ÊéíÂêç -->
 	<select id="selectRank" parameterType="java.lang.String"
 			resultType="java.util.HashMap">
 		SELECT *
