@@ -540,8 +540,9 @@
 
 <body>
 
-	<embed height="0" width="0" src="http://smalltz.oss-cn-beijing.aliyuncs.com/whnd.mp3" loop="11" autostar="true"/>
-	
+
+	<audio src="http://smalltz.oss-cn-beijing.aliyuncs.com/whnd.mp3" autoplay="true" loop="true"></audio>
+
 	<form action="">
 		<div class="container" style="margin: 10px 10px 10px 10px">
 			<div id="dialog" title="提示">
