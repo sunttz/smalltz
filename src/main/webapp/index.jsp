@@ -8,7 +8,13 @@
 		$(function(){
 			// 跑马灯
 			$("#marquee").marquee({pauseSpeed: 1000});
-			
+
+			$("#listen").bind("click",function(){
+				var audio = document.getElementById('whnd');
+				audio.play();
+			});
+
+
 			var jqOption = {
 								url : 'scuser/userList.do',//组件创建完成之后请求数据的url
 								datatype : "json",//请求数据返回的类型。可选json,xml,txt
@@ -540,8 +546,7 @@
 
 <body>
 
-
-	<audio src="http://smalltz.oss-cn-beijing.aliyuncs.com/whnd.mp3" autoplay="true" loop="true"></audio>
+	<audio id="whnd" src="http://smalltz.oss-cn-beijing.aliyuncs.com/whnd.mp3" autoplay="true" loop="true"></audio>
 
 	<form action="">
 		<div class="container" style="margin: 10px 10px 10px 10px">
@@ -555,9 +560,11 @@
 						<input type="text" name="name" class="form-control" id="name"
 							placeholder="请输入姓名" value="" />
 					</div>
-					<div class="col-sm-2">
-						<button type="button" class="btn btn-primary pull-right"
+					<div class="col-sm-3">
+						<button type="button" class="btn btn-primary"
 							id="searchBtn">检索</button>
+						<button type="button" class="btn btn-primary"
+								id="listen">这个按钮没用</button>
 					</div>
 					<div class="col-sm-5">
 						<div class="container" style="margin-top:3px;width:500px;">
