@@ -3,8 +3,8 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="context" scope="session" value="${pageContext.request.contextPath}"/>
-<%-- 阿里云OSS地址 --%>
-<c:set var="base" scope="session" value="http://smalltz.oss-cn-beijing.aliyuncs.com"/>
+
+<c:set var="base" scope="session" value="${pageContext.request.contextPath}"/>
 <!-- jqGrid组件基础样式包-必要 -->
 <link rel="stylesheet" href="${base }/plugin/jqgrid/css/ui.jqgrid.css" />
 <!-- jqGrid主题包-非必要 -->

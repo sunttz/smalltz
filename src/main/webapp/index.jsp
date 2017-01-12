@@ -546,7 +546,7 @@
 
 <body>
 
-	<audio id="whnd" src="http://smalltz.oss-cn-beijing.aliyuncs.com/whnd.mp3" autoplay="true" loop="true"></audio>
+	<audio id="whnd" src="${base}/whnd.mp3" autoplay="true" loop="true"></audio>
 
 	<form action="">
 		<div class="container" style="margin: 10px 10px 10px 10px">
