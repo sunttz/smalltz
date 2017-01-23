@@ -51,6 +51,9 @@ public class ClientInfo {
         } else if (info.indexOf("Opera") != -1) {
             str = "Opera"; //Opera
             pattern = Pattern.compile("Version\\/([0-9.]+)");
+        } else {
+            str = "未知";
+            pattern = Pattern.compile("Version\\/([0-9.]+)");
         }
         matcher = pattern.matcher(info);
         if (matcher.find()) explorerVer = matcher.group(1);
@@ -86,6 +89,9 @@ public class ClientInfo {
             pattern = Pattern.compile(str + "\\s([a-zA-Z0-9]+\\s[0-9.]+)");
         }else if (info.indexOf("Mac") != -1) {
             str = "MacOS";
+            pattern = Pattern.compile(str + "\\s([a-zA-Z0-9]+\\s[0-9.]+)");
+        }else{
+            str = "未知";
             pattern = Pattern.compile(str + "\\s([a-zA-Z0-9]+\\s[0-9.]+)");
         }
         matcher = pattern.matcher(info);
