@@ -84,6 +84,9 @@ public class ClientInfo {
         if (info.indexOf("Windows") != -1) {
             str = "Windows"; //Windows NT 6.1   
             pattern = Pattern.compile(str + "\\s([a-zA-Z0-9]+\\s[0-9.]+)");
+        }else if (info.indexOf("Mac") != -1) {
+            str = "MacOS";
+            pattern = Pattern.compile(str + "\\s([a-zA-Z0-9]+\\s[0-9.]+)");
         }
         matcher = pattern.matcher(info);
         if (matcher.find()) OSVer = matcher.group(1);
