@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="context" scope="session" value="${pageContext.request.contextPath}"/>
 
-<c:set var="base" scope="session" value="${pageContext.request.contextPath}"/>
+<c:set var="base" scope="session" value="http://om0jzaqa7.bkt.clouddn.com"/>
 <!-- jqGrid组件基础样式包-必要 -->
 <link rel="stylesheet" href="${base }/plugin/jqgrid/css/ui.jqgrid.css" />
 <!-- jqGrid主题包-非必要 -->
