@@ -1,18 +1,16 @@
 package com.stt.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.stt.dao.ScuserDao;
 import com.stt.entity.Scuser;
 import com.stt.service.ScuserService;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @Service("scuserServiceImpl")
 public class ScuserServiceImpl implements ScuserService {
@@ -59,5 +57,10 @@ public class ScuserServiceImpl implements ScuserService {
 	@Override
 	public Map<String, Object> selectRank(String name) {
 		return scuserDao.selectRank(name);
+	}
+
+	@Override
+	public List<Map<String, Object>> top10() {
+		return scuserDao.top10();
 	}
 }

@@ -1,24 +1,22 @@
 package com.stt.controller;
 
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import com.github.pagehelper.PageInfo;
 import com.stt.entity.ClientInfo;
+import com.stt.entity.QueryLog;
+import com.stt.entity.Scuser;
 import com.stt.service.QueryLogService;
+import com.stt.service.ScuserService;
 import com.stt.util.HttpUtil;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.stt.entity.Scuser;
-import com.stt.entity.QueryLog;
-import com.stt.service.ScuserService;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -166,6 +164,20 @@ public class ScuserController {
         }
         Map<String, Object> mapList = scuserService.selectRank(name);
         JSONArray json = JSONArray.fromObject(mapList);
+        return json;
+    }
+
+    /**
+     * 搜索排行top10
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/top10")
+    @ResponseBody
+    public Object top10(HttpServletRequest request, Model model){
+        List<Map<String, Object>> top10 = scuserService.top10();
+        JSONArray json = JSONArray.fromObject(top10);
         return json;
     }
 }

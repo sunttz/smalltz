@@ -1,11 +1,10 @@
 package com.stt.dao;
 
-import java.util.List;
-import java.util.Map;
-
+import com.stt.entity.Scuser;
 import org.apache.ibatis.annotations.Param;
 
-import com.stt.entity.Scuser;
+import java.util.List;
+import java.util.Map;
 
 public interface ScuserDao {
     int deleteByPrimaryKey(Integer id);
@@ -61,4 +60,10 @@ public interface ScuserDao {
      * @return
      */
     Map<String, Object> selectRank(@Param("name") String name);
+
+    /**
+     * 搜索top10
+     * @return
+     */
+    List<Map<String, Object>> top10();
 }

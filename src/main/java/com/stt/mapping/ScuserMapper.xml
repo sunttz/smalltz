@@ -154,6 +154,16 @@
 		</if>
 	</select>
 
+	<!-- 搜索排行top10 -->
+	<select id="top10" resultType="java.util.HashMap">
+		SELECT
+		  NAME,COUNT(*) NUM
+		FROM QUERY_LOG
+		GROUP BY NAME
+		ORDER BY NUM DESC
+		LIMIT 0, 10
+	</select>
+
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from scuser
 		where id = #{id,jdbcType=INTEGER}

@@ -2,11 +2,10 @@ package com.stt.service;
 
 import com.github.pagehelper.PageInfo;
 import com.stt.entity.Scuser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
 
 public interface ScuserService {
 
@@ -43,4 +42,10 @@ public interface ScuserService {
      * @return
      */
     Map<String, Object> selectRank(@Param("name") String name);
+
+	/**
+	 * 搜索top10
+	 * @return
+	 */
+	List<Map<String, Object>> top10();
 }
